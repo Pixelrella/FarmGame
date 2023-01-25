@@ -5,7 +5,7 @@ public class GrowingCrop : MonoBehaviour
     [SerializeField] private GameObject waterButton;
     [SerializeField] private GameObject harvestButton;
 
-    [SerializeField] private float timeToYield;
+    [SerializeField] private Crop crop;
 
     private bool isGrowing;
     private float timeSinceStart;
@@ -40,12 +40,13 @@ public class GrowingCrop : MonoBehaviour
 
         timeSinceStart += Time.deltaTime;
 
-        if (timeSinceStart >= timeToYield) 
+        if (timeSinceStart >= crop.TimeToYield) 
         {
             needsHarvest = true;
             isGrowing = false;
 
             harvestButton.SetActive(true);
+            timeSinceStart = 0;
         }
     }
 

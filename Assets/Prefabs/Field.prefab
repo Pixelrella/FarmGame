@@ -364,7 +364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterButton: {fileID: 1453526665}
   harvestButton: {fileID: 4223026043038552336}
-  timeToYield: 1
+  crop: {fileID: 11400000, guid: 955be587debab3a4db85a8e5028c4f85, type: 2}
 --- !u!1 &4223026043038552336
 GameObject:
   m_ObjectHideFlags: 0
