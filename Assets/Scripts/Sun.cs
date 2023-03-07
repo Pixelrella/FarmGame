@@ -8,7 +8,6 @@ public class Sun : MonoBehaviour
     private Quaternion originalRotation;
     private Light light;
 
-
     private void Awake()
     {
         originalRotation = transform.rotation;
@@ -20,12 +19,16 @@ public class Sun : MonoBehaviour
         Elapsed += Time.deltaTime;
         if (Elapsed > 50)
         {
-            Elapsed += 9*Time.deltaTime; // 10 degrees per second during night
+           light.color = Color.white;
+           Elapsed += 9*Time.deltaTime; // 10 degrees per second during night
         }
         if (Elapsed > 100) // one degree per second during day
         {
             Elapsed = 0;
         }
+
+        var steps = Elapsed/100;
+        var rotation = Mathf.Lerp(0, 360, steps) ; // third is in percent
 
         // 0/360 = midnight
         // 45 = morning, sunrise
@@ -33,10 +36,9 @@ public class Sun : MonoBehaviour
         // 135 = afternoon
         // 180 = evening, sundown
 
-        var steps = Elapsed;
-        var rotation = Mathf.Lerp(0, 360, steps/100) ; // third is in percent
-
-        light.intensity = intentistyCurve.Evaluate(steps / 100);
+        light.intensity = intentistyCurve.Evaluate(steps);
+        if(rotation > 135)
+            light.color = Color.Lerp(Color.white, Color.red, steps);
 
         Debug.Log($"Elasped: {Elapsed} Steps: {steps} Rotation: {rotation}");
 
